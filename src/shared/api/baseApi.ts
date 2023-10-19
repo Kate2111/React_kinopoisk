@@ -1,6 +1,11 @@
-import { IMovieItem } from '@/types/app'
+import { IMovieItem } from '@/types/PostItem'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+interface ListMoviesResponse {
+    data: {
+      movies: IMovieItem[];
+    };
+  };
 
 export const baseApi = createApi({
   reducerPath: 'api',
@@ -11,8 +16,10 @@ export const baseApi = createApi({
             url: `/list_movies.json?sort_by=year&genre=${genre}`,
             params: {
                 _genre: genre
-            }
-        })
+            },
+            
+        }),
+        transformResponse: (response: ListMoviesResponse) => response.data.movies
     }),
     getMovieById: builder.query<IMovieItem, number>({
         query: (idMovie: number) => ({
@@ -21,5 +28,6 @@ export const baseApi = createApi({
     }) 
   }),
 })
+
 
 export const {useFetchMovieListQuery, useGetMovieByIdQuery} = baseApi

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { baseApi } from '@/shared/api'
+import { baseApi } from '@/shared/api/baseApi'
 
 export const store = configureStore({
   reducer: {
